@@ -38,3 +38,9 @@ sysinfo.txt
 
 #não manda a cena!!!!11!1
 *.unity
+
+#nossas configs
+.idea
+.vscode
+.code
+
