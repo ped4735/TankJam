@@ -34,3 +34,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+
+#não manda a cena!!!!11!1
+*.unity
