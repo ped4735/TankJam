@@ -5,9 +5,10 @@ using UnityEngine;
 public class Shooting : MonoBehaviour {
 
     [SerializeField]private GameObject muzzle;
-    [SerializeField] private GameController cmd;
+    [SerializeField] private CommandController cmd;
     
     private bool isReloading;
+
 
     public void Shoot()
     {

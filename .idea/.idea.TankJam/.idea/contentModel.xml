@@ -6,7 +6,8 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets\Scripts" t="Include">
         <e p="BasicTankMoviment.cs" t="Include" />
-        <e p="GameController.cs" t="Include" />
+        <e p="CommandController.cs" t="Include" />
+        <e p="ComplexTankMoviment.cs" t="Include" />
         <e p="Shooting.cs" t="Include" />
       </e>
       <e p="Assets\TextMesh Pro" t="Include">

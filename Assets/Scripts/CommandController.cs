@@ -6,10 +6,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class CommandController : MonoBehaviour
 {
 	//TODO trocar para script principal de comandos do tank
-	[SerializeField] private Shooting _tank;
+	[SerializeField] private ComplexTankMoviment _tank;
 	[SerializeField] private TMP_InputField _cmdInput;
 	[SerializeField] private TextMeshProUGUI _cmdLog;
 	//[SerializeField] private Text cmdLog;
@@ -57,9 +57,11 @@ public class GameController : MonoBehaviour
 				
 				case "brk":
 					_cmdLog.text += "<color=#55b938>BREAK! " + float.Parse(_cmds[1]) + "\n";
+					_tank.BreakByTime(float.Parse(_cmds[1]));
 					break;
 				case "acc":
 					_cmdLog.text += "<color=#55b938>ACC! " + float.Parse(_cmds[1]) + "\n";
+					_tank.AccByTime(float.Parse(_cmds[1]));
 					break;
 				case "help":
 					_cmdLog.text += "<color=\"blue\"><<help>>\n" +
