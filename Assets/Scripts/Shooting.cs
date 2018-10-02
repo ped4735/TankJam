@@ -9,6 +9,12 @@ public class Shooting : MonoBehaviour {
     
     private bool isReloading;
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)){
+            Shoot();
+        }    
+    }
+
     public void Shoot()
     {
 
@@ -22,6 +28,10 @@ public class Shooting : MonoBehaviour {
             {
                 GameObject hitObject = hit.collider.gameObject;
                 Debug.Log("Hit something: "+ hitObject);
+                
+                if (hitObject.tag == "Enemy"){
+                    hitObject.GetComponent<ExplosionSript>().StartExplosion();
+                }
             }
             cmd.ReceiveCommand("SHOOT\n");
             StartCoroutine(ReloadCoroutine());
@@ -31,8 +41,7 @@ public class Shooting : MonoBehaviour {
             Debug.Log("I am reloading!!");
             cmd.ReceiveCommand("I am reloading!!\n");
         }
-
-     }
+    }
     
 
     IEnumerator ReloadCoroutine()
@@ -40,6 +49,6 @@ public class Shooting : MonoBehaviour {
         isReloading = true;
         yield return new WaitForSeconds(2f);
         isReloading = false;
-       
+
     }
 }
