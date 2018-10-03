@@ -5,7 +5,10 @@ using UnityEngine;
 public class ComplexTankMoviment : MonoBehaviour
 {
 
-    public Transform turret;
+    [SerializeField] private Transform turret;
+    [SerializeField] private GameObject muzzle;
+    [SerializeField] private CommandController cmd;
+    private bool isReloading;
 
     [SerializeField] private Vector3 vel;
     public float accelerationAmount = 0.05f;
@@ -23,7 +26,7 @@ public class ComplexTankMoviment : MonoBehaviour
     private float breakTime;
     private float reverseByTime;
     
-
+    
     //rotation stats
     private Quaternion tankRotation;
 
@@ -34,6 +37,8 @@ public class ComplexTankMoviment : MonoBehaviour
         turret = this.transform.GetChild(1);
         Debug.Log(turret.gameObject.name);
 
+        
+       
         //tankRotation = this.transform.rotation;
 
     }
@@ -86,16 +91,18 @@ public class ComplexTankMoviment : MonoBehaviour
         }
 
 
-        TestMoviment();
+        //TestMoviment();
     }
 
 
     public void RotateTurretLeft(float angle){
         rotateTurretAngleLeft = angle;
     }
+    
     public void RotateTurretRight(float angle){
         rotateTurretAngleRight =  angle;
     }
+    
     public void AccByTime(float time){
         accelerateTime = time;
     }
@@ -108,6 +115,7 @@ public class ComplexTankMoviment : MonoBehaviour
     {
         rotateTimeLeft = time;
     }
+    
     public void BreakByTime(float time)
     {
         breakTime = time;
@@ -153,4 +161,41 @@ public class ComplexTankMoviment : MonoBehaviour
         }
     }
 
+    public void Shoot()
+    {
+
+        //PLACEHOLDER: Verify is reloading on the command, not here in here
+        if (!isReloading)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(muzzle.transform.position, muzzle.transform.up, 10);
+            Debug.DrawRay(muzzle.transform.position, muzzle.transform.up * 10, Color.blue,1f);
+
+            if (hit)
+            {
+                GameObject hitObject = hit.collider.gameObject;
+                
+                if (hitObject.tag == "Enemy") {
+                    Destroy (hitObject.gameObject);
+                }
+                //Debug.Log("Hit something: "+ hitObject);
+            }
+            cmd.ReceiveCommand("SHOOT\n");
+            StartCoroutine(ReloadCoroutine());
+        }
+        else
+        {
+            Debug.Log("I am reloading!!");
+            cmd.ReceiveCommand("I am reloading!!\n");
+        }
+
+    }
+    
+
+    IEnumerator ReloadCoroutine()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(2f);
+        isReloading = false;
+       
+    }
 }
